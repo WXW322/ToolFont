@@ -113,6 +113,10 @@ export default new Router({
                     meta: {title: '协议分割'}
                 },
                 {
+                    path: '/icsprofieldtype',
+                    component: () => import('../components/page/ProtocolFieldType.vue')
+                },
+                {
                     path: 'binaryProInfo',
                     component: () => import('../components/page/ProtocolList.vue'),
                     meta: {title: '协议概览'}
@@ -121,6 +125,11 @@ export default new Router({
                     path: 'binaryProSplit',
                     component: () => import('../components/page/ProtocolSplit.vue'),
                     meta: {title: '协议字段定界'}
+                },
+                {
+                    path: '/binaryProFormat',
+                    component: () => import('../components/page/formatTree.vue'),
+                    meta: {title: '协议树生成'}
                 }
             ]
         },

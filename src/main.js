@@ -15,6 +15,7 @@ import 'echarts/lib/chart/line'
 import 'echarts/lib/chart/tree'
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
+Vue.component('chart', Echarts)
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
@@ -46,6 +47,7 @@ router.beforeEach((to, from, next) => {
             next();
         }
     }
+    
 });
 
 new Vue({

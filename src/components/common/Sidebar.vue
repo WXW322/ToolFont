@@ -158,6 +158,10 @@ export default {
                         {
                             index: 'icsprosplit',
                             title: '协议字段定界'
+                        },
+                        {
+                            index: 'icsprofieldtype',
+                            title: '协议字段类型识别'
                         }
                     ]
                 },
@@ -175,7 +179,7 @@ export default {
                             title: '协议字段定界'
                         },
                         {
-                            index: 'proFormat',
+                            index: 'binaryProFormat',
                             title: '协议格式树生成'
                         }
                     ]

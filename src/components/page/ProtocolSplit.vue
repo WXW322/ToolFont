@@ -30,7 +30,7 @@ export default {
       var rowIndex = e
       var queryDatas = {'rowIndex': rowIndex}
       this.$axios({
-        url: 'http://192.168.2.250:8000/common/getSplitProtoDataDetail/',
+        url: 'http://192.168.199.128:8000/common/getSplitProtoDataDetail/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -49,7 +49,7 @@ export default {
       var that = this
       var queryDatas = {'pageNum': pageNum, 'pageCnt': 10, 'proType': 'icsPro'}
       this.$axios({
-        url: 'http://192.168.2.250:8000/common/querySplitSummary/',
+        url: 'http://192.168.199.128:8000/common/querySplitSummary/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -71,11 +71,19 @@ export default {
     var rPath = this.$route.path
     var length = rPath.length
     rPath = rPath.substring(1, length)
+    console.log(rPath)
     if(rPath === 'binaryProSplit'){
       queryDatas['proType'] = 'binaryPro'
     }
+    else if(rPath === 'icsprosplit'){
+      queryDatas['proType'] = 'icsPro'
+    }
+    else{
+      queryDatas['proType'] = 'textPro'
+    }
+    console.log(queryDatas)
     this.$axios({
-      url: 'http://192.168.2.250:8000/common/querySplitSummary/',
+      url: 'http://192.168.199.128:8000/common/querySplitSummary/',
       method: 'POST',
       contentType: 'application/json',
       dataType: 'json',

@@ -40,7 +40,7 @@ export default {
       var rowIndex = e.currentTarget.rowIndex
       var queryDatas = {'rowIndex': rowIndex}
       this.$axios({
-        url: 'http://192.168.2.250:8000/common/getProtoDataDetail/',
+        url: 'http://192.168.199.128:8000/common/getProtoDataDetail/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -59,7 +59,7 @@ export default {
       var queryDatas = {'pageNum': pageNum, 'pageCnt': 20}
       console.log('enter')
       this.$axios({
-        url: 'http://192.168.2.250:8000/common/queryProSummary/',
+        url: 'http://192.168.199.128:8000/common/queryProSummary/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -80,7 +80,7 @@ export default {
     var that = this
     var queryDatas = {'pageNum': 0, 'pageCnt': 10}
     this.$axios({
-      url: 'http://192.168.2.250:8000/common/queryProSummary/',
+      url: 'http://192.168.199.128:8000/common/queryProSummary/',
       method: 'POST',
       contentType: 'application/json',
       dataType: 'json',
