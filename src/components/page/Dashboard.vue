@@ -10,21 +10,19 @@
                             <div>{{role}}</div>
                         </div>
                     </div>
-                    <div class="user-info-list">上次登录时间：<span>2018-01-01</span></div>
-                    <div class="user-info-list">上次登录地点：<span>东莞</span></div>
+                    <div class="user-info-list">上次登录时间：<span>2019-12-13</span></div>
+                    <div class="user-info-list">上次登录地点：<span>北京</span></div>
                 </el-card>
                 <el-card shadow="hover" style="height:252px;">
                     <div slot="header" class="clearfix">
-                        <span>语言详情</span>
+                        <span>解析文件详情</span>
                     </div>
-                    Vue
+                    工业协议
                     <el-progress :percentage="71.3" color="#42b983"></el-progress>
-                    JavaScript
+                    文本协议
                     <el-progress :percentage="24.1" color="#f1e05a"></el-progress>
-                    CSS
+                    一般协议
                     <el-progress :percentage="3.7"></el-progress>
-                    HTML
-                    <el-progress :percentage="0.9" color="#f56c6c"></el-progress>
                 </el-card>
             </el-col>
             <el-col :span="16">
@@ -35,7 +33,7 @@
                                 <i class="el-icon-lx-people grid-con-icon"></i>
                                 <div class="grid-cont-right">
                                     <div class="grid-num">1234</div>
-                                    <div>用户访问量</div>
+                                    <div>访问系统次数</div>
                                 </div>
                             </div>
                         </el-card>
@@ -45,8 +43,8 @@
                             <div class="grid-content grid-con-2">
                                 <i class="el-icon-lx-notice grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">321</div>
-                                    <div>系统消息</div>
+                                    <div class="grid-num">{{fileSize}}</div>
+                                    <div>上传文件大小</div>
                                 </div>
                             </div>
                         </el-card>
@@ -56,8 +54,8 @@
                             <div class="grid-content grid-con-3">
                                 <i class="el-icon-lx-goods grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">5000</div>
-                                    <div>数量</div>
+                                    <div class="grid-num">{{fileName}}</div>
+                                    <div>上传文件数量</div>
                                 </div>
                             </div>
                         </el-card>
@@ -65,24 +63,13 @@
                 </el-row>
                 <el-card shadow="hover" style="height:403px;">
                     <div slot="header" class="clearfix">
-                        <span>待办事项</span>
+                        <span>上传文件列表</span>
                         <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
                     </div>
                     <el-table :data="todoList" :show-header="false" height="304" style="width: 100%;font-size:14px;">
-                        <el-table-column width="40">
-                            <template slot-scope="scope">
-                                <el-checkbox v-model="scope.row.status"></el-checkbox>
-                            </template>
-                        </el-table-column>
                         <el-table-column>
                             <template slot-scope="scope">
-                                <div class="todo-item" :class="{'todo-item-del': scope.row.status}">{{scope.row.title}}</div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column width="60">
-                            <template slot-scope="scope">
-                                <i class="el-icon-edit"></i>
-                                <i class="el-icon-delete"></i>
+                                <div class="todo-item" >{{scope.row.title}}</div>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -113,27 +100,21 @@
             return {
                 name: localStorage.getItem('ms_username'),
                 todoList: [{
-                        title: '今天要修复100个bug',
-                        status: false,
+                        title: '今天要修复100个bug'
                     },
                     {
-                        title: '今天要修复100个bug',
-                        status: false,
+                        title: '今天要修复100个bug'
                     },
                     {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: false,
+                        title: '今天要写100行代码加几个bug吧'
                     }, {
-                        title: '今天要修复100个bug',
-                        status: false,
+                        title: '今天要修复100个bug'
                     },
                     {
-                        title: '今天要修复100个bug',
-                        status: true,
+                        title: '今天要修复100个bug'
                     },
                     {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: true,
+                        title: '今天要写100行代码加几个bug吧'
                     }
                 ],
                 data: [{
@@ -166,21 +147,23 @@
                     }
                 ],
                 options: {
-                    title: '最近七天每天的用户访问量',
+                    title: '文件大小排序',
                     showValue: false,
                     fillColor: 'rgb(45, 140, 240)',
                     bottomPadding: 30,
                     topPadding: 30
                 },
                 options2: {
-                    title: '最近七天用户访问趋势',
+                    title: '访问系统次数',
                     fillColor: '#FC6FA1',
                     axisColor: '#008ACD',
                     contentColor: '#EEEEEE',
                     bgColor: '#F5F8FD',
                     bottomPadding: 30,
                     topPadding: 30
-                }
+                },
+                fileName: 0,
+                fileSize: 0
             }
         },
         components: {
@@ -201,6 +184,11 @@
         deactivated(){
             window.removeEventListener('resize', this.renderChart);
             bus.$off('collapse', this.handleBus);
+        },
+        mounted () {
+            this.readFileNums()
+            this.readFileSize()
+            this.readFileLists()
         },
         methods: {
             changeDate(){
@@ -223,6 +211,70 @@
             renderChart(){
                 this.$refs.bar.renderChart();
                 this.$refs.line.renderChart();
+            },
+            readFileNums(){
+                console.log('aa')
+                var that = this
+                let queryDatas = {}
+                queryDatas['proType'] = 'aa'
+                console.log(queryDatas)
+                this.$axios({
+                    url: 'http://192.168.199.129:8000/queryFileNum/',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(queryDatas)
+                })
+                    .then(function (response) {
+                    console.log('back')
+                    var type = response.data
+                    console.log(type)
+                    that.fileName = type['fileName']
+                    })
+                    .catch(function (error) {
+                    console.log(error)
+                    })
+            },
+            readFileSize(){
+                console.log('aa')
+                var that = this
+                let queryDatas = {}
+                queryDatas['proType'] = 'aa'
+                console.log(queryDatas)
+                this.$axios({
+                    url: 'http://192.168.199.129:8000/queryFileSize/',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(queryDatas)
+                })
+                    .then(function (response) {
+                    console.log('back')
+                    var type = response.data
+                    console.log(type)
+                    that.fileSize = type['fileSize']
+                    })
+                    .catch(function (error) {
+                    console.log(error)
+                    })
+            },
+            readFileLists(){
+                var that = this
+                let queryDatas = {}
+                  this.$axios({
+                    url: 'http://192.168.199.129:8000/queryFileLists/',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(queryDatas)
+                  })
+                  .then(function (response) {
+                     var type = response.data
+                     that.todoList = type['fileLists']
+                  })
+                  .catch(function (error) {
+                     console.log(error)
+                  })
             }
         }
     }

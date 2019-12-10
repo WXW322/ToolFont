@@ -2,11 +2,11 @@
   <div>
     <table border="0" cellpadding="10">
       <tr>
-        <th>id</th>
-        <th>timeStamp</th>
-        <th>source</th>
-        <th>destination</th>
-        <th>summary</th>
+        <th align="center">id</th>
+        <th align="center">timeStamp</th>
+        <th align="center">source</th>
+        <th align="center">destination</th>
+        <th align="center">summary</th>
       </tr>
       <tr class="aa" v-for="item in protocolDatas" :key="item.id" v-on:click="ProDetails($event)">
         <td align="center">{{item.id}}</td>
@@ -31,16 +31,51 @@ export default {
   data () {
     return {
       protocolDatas: null,
-      detailProData: null
+      detailProData: null,
+      proType: ''
     }
   },
   methods: {
+    getSummary: function (){
+      var rPath = this.$route.path
+      var length = rPath.length
+      rPath = rPath.substring(1, length)
+      var that = this
+      var queryDatas = {'pageNum': 0, 'pageCnt': 15}
+      if(rPath === 'icsProInfo'){
+        queryDatas['proType'] = 'icsPro'
+        that.proType = 'icsPro'
+      }
+      else if(rPath === 'textProInfo'){
+        queryDatas['proType'] = 'textPro'
+        that.proType = 'textPro'
+      }
+      else{
+        queryDatas['proType'] = 'binaryPro'
+        that.proType = 'binaryPro'
+      }
+      this.$axios({
+        url: 'http://192.168.199.129:8000/common/queryProSummary/',
+        method: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(queryDatas)
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.protocolDatas = response.data
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
     ProDetails: function (e) {
       var that = this
       var rowIndex = e.currentTarget.rowIndex
       var queryDatas = {'rowIndex': rowIndex}
+      queryDatas['proType'] = this.proType
       this.$axios({
-        url: 'http://192.168.199.128:8000/common/getProtoDataDetail/',
+        url: 'http://192.168.199.129:8000/common/getProtoDataDetail/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -56,10 +91,11 @@ export default {
     },
     NextPage: function (pageNum) {
       var that = this
-      var queryDatas = {'pageNum': pageNum, 'pageCnt': 20}
-      console.log('enter')
+      var queryDatas = {'pageNum': pageNum, 'pageCnt': 15}
+      queryDatas['proType'] = this.proType
+      console.log(this.proType)
       this.$axios({
-        url: 'http://192.168.199.128:8000/common/queryProSummary/',
+        url: 'http://192.168.199.129:8000/common/queryProSummary/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -74,25 +110,13 @@ export default {
         })
     }
   },
+  watch: {
+    '$route' (to, from) {
+      this.getSummary()
+    }
+  },
   mounted () {
-    console.log('in the method')
-    console.log(this.$route)
-    var that = this
-    var queryDatas = {'pageNum': 0, 'pageCnt': 10}
-    this.$axios({
-      url: 'http://192.168.199.128:8000/common/queryProSummary/',
-      method: 'POST',
-      contentType: 'application/json',
-      dataType: 'json',
-      data: JSON.stringify(queryDatas)
-    })
-      .then(function (response) {
-        console.log(response.data)
-        that.protocolDatas = response.data
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    this.getSummary()
   }
 }
 </script>
@@ -102,12 +126,15 @@ table {
   width: 100%;
   height: 70%
 }
-tr {
-  background: #E4FFC7
+th {
+  background: #D9EDF7
+}
+td {
+  background: #F9F9F9
 }
 textarea {
   width: 100%;
-  height : 100px;
+  height : 200px;
   font-size: 16px
 }
 </style>

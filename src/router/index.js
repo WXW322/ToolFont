@@ -20,6 +20,11 @@ export default new Router({
                     meta: { title: '系统首页' }
                 },
                 {
+                    path: '/fileUpload',
+                    component: () => import('../components/page/FileUpload.vue'),
+                    meta: {title: '文件上传'}
+                },
+                {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
                     meta: { title: '自定义图标' }
@@ -103,18 +108,23 @@ export default new Router({
                     meta: { title: '支持作者' }
                 },
                 {
-                    path: '/icsPro',
+                    path: '/icsProInfo',
                     component: () => import('../components/page/ProtocolList.vue'),
-                    meta: {title: '工控协议逆向'}
+                    meta: {title: '工业协议概览'}
                 },
                 {
-                    path: 'icsprosplit',
+                    path: 'icsProSplit',
                     component: () => import('../components/page/ProtocolSplit.vue'),
                     meta: {title: '协议分割'}
                 },
                 {
                     path: '/icsprofieldtype',
-                    component: () => import('../components/page/ProtocolFieldType.vue')
+                    component: () => import('../components/page/ProtocolFieldType.vue'),
+                    meta: {title: '字段类型逆向'}
+                },
+                {
+                    path: '/icsProFormat',
+                    component: () => import('../components/page/formatTree.vue')
                 },
                 {
                     path: 'binaryProInfo',
@@ -130,6 +140,21 @@ export default new Router({
                     path: '/binaryProFormat',
                     component: () => import('../components/page/formatTree.vue'),
                     meta: {title: '协议树生成'}
+                },
+                {
+                    path: 'textProInfo',
+                    component: () => import('../components/page/ProtocolList.vue'),
+                    meta: {title: '协议概览'}
+                },
+                {
+                    path: '/textProSplit',
+                    component: () => import('../components/page/ProtocolSplit.vue'),
+                    meta: {title: '协议分割'}
+                },
+                {
+                    path: '/textProFormat',
+                    component: () => import('../components/page/formatTree.vue'),
+                    met: {title: '协议树生成'}
                 }
             ]
         },

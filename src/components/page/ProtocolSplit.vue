@@ -20,17 +20,55 @@ export default {
   data () {
     return {
       protocolSplitDatas: null,
-      detailSplitProData: null
+      detailSplitProData: null,
+      proType: ''
     }
   },
   methods: {
+    ProSplitMsgs: function () {
+      var that = this
+      var queryDatas = {'pageNum': 0, 'pageCnt': 15}
+      console.log('nonghangshabi')
+      var rPath = this.$route.path
+      var length = rPath.length
+      rPath = rPath.substring(1, length)
+      console.log(rPath)
+      if(rPath === 'binaryProSplit'){
+        queryDatas['proType'] = 'binaryPro'
+        this.proType = 'binaryPro'
+      }
+      else if(rPath === 'icsProSplit'){
+        queryDatas['proType'] = 'icsPro'
+        this.proType = 'icsPro'
+      }
+      else{
+        queryDatas['proType'] = 'textPro'
+        this.proType = 'textPro'
+      }
+      console.log(queryDatas)
+      this.$axios({
+        url: 'http://192.168.199.129:8000/common/querySplitSummary/',
+        method: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(queryDatas)
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.protocolSplitDatas = response.data
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
     ProSplitDetails: function (e) {
       console.log(e)
       var that = this
       var rowIndex = e
       var queryDatas = {'rowIndex': rowIndex}
+      queryDatas['proType'] = this.proType
       this.$axios({
-        url: 'http://192.168.199.128:8000/common/getSplitProtoDataDetail/',
+        url: 'http://192.168.199.129:8000/common/getSplitProtoDataDetail/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -47,9 +85,9 @@ export default {
     },
     NextPage: function (pageNum) {
       var that = this
-      var queryDatas = {'pageNum': pageNum, 'pageCnt': 10, 'proType': 'icsPro'}
+      var queryDatas = {'pageNum': pageNum, 'pageCnt': 10, 'proType': this.proType}
       this.$axios({
-        url: 'http://192.168.199.128:8000/common/querySplitSummary/',
+        url: 'http://192.168.199.129:8000/common/querySplitSummary/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -64,9 +102,14 @@ export default {
         })
     }
   },
+  watch: {
+    '$route' (to, from) {
+      this.ProSplitMsgs()
+    }
+  },
   mounted () {
     var that = this
-    var queryDatas = {'pageNum': 0, 'pageCnt': 10}
+    var queryDatas = {'pageNum': 0, 'pageCnt': 15}
     console.log('nonghangshabi')
     var rPath = this.$route.path
     var length = rPath.length
@@ -74,16 +117,19 @@ export default {
     console.log(rPath)
     if(rPath === 'binaryProSplit'){
       queryDatas['proType'] = 'binaryPro'
+      this.proType = 'binaryPro'
     }
-    else if(rPath === 'icsprosplit'){
+    else if(rPath === 'icsProSplit'){
       queryDatas['proType'] = 'icsPro'
+      this.proType = 'icsPro'
     }
     else{
       queryDatas['proType'] = 'textPro'
+      this.proType = 'textPro'
     }
     console.log(queryDatas)
     this.$axios({
-      url: 'http://192.168.199.128:8000/common/querySplitSummary/',
+      url: 'http://192.168.199.129:8000/common/querySplitSummary/',
       method: 'POST',
       contentType: 'application/json',
       dataType: 'json',
@@ -104,12 +150,12 @@ export default {
 li {
   width: 100%;
   height: 20px;
-  background: #E4FFC7;
+  background: #F9F9F9;
   text-align: left
 }
 textarea {
   width: 100%;
-  height : 100px;
+  height : 300px;
   font-size: 16px
 }
 table {

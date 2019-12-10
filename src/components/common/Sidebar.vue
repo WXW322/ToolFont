@@ -63,7 +63,7 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
+                    index: 'fileUpload',
                     title: '文件上传'
                 },
                 {
@@ -153,22 +153,30 @@ export default {
                 {
                     icon: 'el-icon-lx-redpacket_fill',
                     index: 'icspro',
-                    title: '工控协议逆向',
+                    title: '工业协议逆向',
                     subs: [
                         {
-                            index: 'icsprosplit',
+                            index: 'icsProInfo',
+                            title: '协议概览'
+                        },
+                        {
+                            index: 'icsProSplit',
                             title: '协议字段定界'
                         },
                         {
                             index: 'icsprofieldtype',
                             title: '协议字段类型识别'
+                        },
+                        {
+                            index: 'icsProFormat',
+                            title: '协议语法树生成'
                         }
                     ]
                 },
                 {
                     icon: 'el-icon-lx-redpacket_fill',
                     index: 'binarypro',
-                    title: '二进制协议逆向',
+                    title: '一般协议逆向',
                      subs: [
                         {
                             index: 'binaryProInfo',
@@ -185,7 +193,23 @@ export default {
                     ]
                 },
                 {
-
+                    icon: 'el-icon-lx-redpacket_fill',
+                    index: 'textpro',
+                    title: '文本协议逆向',
+                     subs: [
+                        {
+                            index: 'textProInfo',
+                            title: '协议数据概览'
+                        },
+                        {
+                            index: 'textProSplit',
+                            title: '协议分割'
+                        },
+                        {
+                            index: 'textProFormat',
+                            title: '协议格式树生成'
+                        }
+                    ]
                 }
             ]
         };

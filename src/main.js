@@ -14,6 +14,7 @@ import Echarts from 'vue-echarts'
 import 'echarts/lib/chart/line'
 import 'echarts/lib/chart/tree'
 import echarts from 'echarts'
+import 'bootstrap'
 Vue.prototype.$echarts = echarts
 Vue.component('chart', Echarts)
 
