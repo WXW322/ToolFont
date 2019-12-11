@@ -104,7 +104,12 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      this.ProSplitMsgs()
+      console.log('to')
+      console.log(to['path'])
+      console.log('to')
+      if (to['path'] === '/binaryProSplit'){
+        this.ProSplitMsgs()
+      }
     }
   },
   mounted () {
@@ -151,12 +156,13 @@ li {
   width: 100%;
   height: 20px;
   background: #F9F9F9;
-  text-align: left
+  text-align: left;
+  font-size: 20px
 }
 textarea {
   width: 100%;
   height : 300px;
-  font-size: 16px
+  font-size: 20px
 }
 table {
   width: 100%

@@ -112,7 +112,13 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      this.getSummary()
+      console.log('aaato')
+      console.log(to['path'])
+      console.log('aaato')
+      if(to['path'] === '/binaryProInfo'){
+        console.log('enter')
+        this.getSummary()
+      }
     }
   },
   mounted () {
@@ -127,14 +133,16 @@ table {
   height: 70%
 }
 th {
-  background: #D9EDF7
+  background: #D9EDF7;
+  font-size: 20px;
 }
 td {
-  background: #F9F9F9
+  background: #F9F9F9;
+  font-size: 20px
 }
 textarea {
   width: 100%;
   height : 200px;
-  font-size: 16px
+  font-size: 20px
 }
 </style>

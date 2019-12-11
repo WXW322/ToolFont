@@ -118,7 +118,7 @@ export default new Router({
                     meta: {title: '协议分割'}
                 },
                 {
-                    path: '/icsprofieldtype',
+                    path: 'icsprofieldtype',
                     component: () => import('../components/page/ProtocolFieldType.vue'),
                     meta: {title: '字段类型逆向'}
                 },

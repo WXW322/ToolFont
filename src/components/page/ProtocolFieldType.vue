@@ -31,9 +31,9 @@ export default {
     ProDetails: function (e) {
       var that = this
       var rowIndex = e.currentTarget.rowIndex
-      var queryDatas = {'rowIndex': rowIndex, 'protype': 'icsPro'}
+      var queryDatas = {'rowIndex': rowIndex, 'proType': 'icsPro'}
       this.$axios({
-        url: 'http://192.168.199.128:8000/common/getProtoDataDetail/',
+        url: 'http://192.168.199.129:8000/common/getProtoDataDetail/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -50,9 +50,8 @@ export default {
     NextPage: function (pageNum) {
       var that = this
       var queryDatas = {'pageNum': pageNum, 'pageCnt': 20}
-      console.log('enter')
       this.$axios({
-        url: 'http://192.168.199.128:8000/common/queryIcsFieldTypes/',
+        url: 'http://192.168.199.129:8000/common/queryIcsFieldTypes/',
         method: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -72,9 +71,9 @@ export default {
     console.log('in the method')
     console.log(this.$route)
     var that = this
-    var queryDatas = {'pageNum': 0, 'pageCnt': 10}
+    var queryDatas = {'pageNum': 0, 'pageCnt': 15}
     this.$axios({
-      url: 'http://192.168.199.128:8000/common/queryIcsFieldTypes/',
+      url: 'http://192.168.199.129:8000/common/queryIcsFieldTypes/',
       method: 'POST',
       contentType: 'application/json',
       dataType: 'json',

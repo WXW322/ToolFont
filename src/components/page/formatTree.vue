@@ -64,13 +64,14 @@ export default {
                 left: '7%',
                 bottom: '1%',
                 right: '20%',
-                symbolSize: 10,
+                symbolSize: 20,
                 label: {
                   normal: {
                     position: 'left',
                     verticalAlign: 'middle',
                     align: 'right',
-                    fontSize: 12
+                    fontSize: 14,
+                    fontWeight: 'bold'
                   }
                 },
 
